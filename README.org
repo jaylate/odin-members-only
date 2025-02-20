@@ -1,0 +1,29 @@
+#+TITLE: Odin Members Only
+
+Implementation of The Odin Project Members Only project - message board with users and members functionality and database support
+
+* Used resources
+- Minimalistic [[https://uchu.style/][uchu.style]] color palette
+
+* Usage
+- Note: PostgreSQL setup is required with database created
+- Clone the project and ~cd~ into it
+- Run ~npm install~
+- Create ~.env~ file with the following data:
+  - ~PORT~ - Port where you want to have the message board running (~3000~ by default)
+  - ~DB_HOST~ - Hostname of the database server
+  - ~DB_USER~ - PostgreSQL user
+  - ~DB_DATABASE_NAME~ - Name of the database
+  - ~DB_PORT~ - Port where PosgreSQL is running on the host
+  - ~MEMBER_SECRET~ - Secret phrase/password to become a member on the message board
+  - (Optional) ~MEMBER_SECRET_HINT~ - Can be used to help (or not) user to find secret key
+  - ~ADMIN_FULLNAME~ - Desired fullname that will be visible on the board
+  - ~ADMIN_USERNAME~ - Desired username to use on the board
+  - ~ADMIN_PASSWORD~ - Admin's password 
+- Run ~node db/populatedb.js~, this will create database scheme and admin user (credentials from ~.env~ for admin will be used only on this step)
+- Run ~node app.js~ and the app will be accessible on the port that you provided during configuration
+  
+* Additional ideas
+- [ ] Admin dashboard
+  - [ ] User management (roles changing, deletion)
+  - [ ] Secret change

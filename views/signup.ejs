@@ -1,0 +1,25 @@
+<%- include('header') %>
+<div class="signup">
+  <h1>Sign Up</h1>
+  <form action="/signup" method="POST">
+    <label for="fullname">Full Name:</label>
+    <input id="fullname" name="fullname" type="text" required />
+    <br />
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" required />
+    <br />
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required />
+    <br />
+    <label for="passwordConfirmation">Repeat password</label>
+    <input id="passwordConfirmation" name="passwordConfirmation" type="password" required />
+    <br />
+    <button>Sign Up</button>
+    <% if (errors) { %>
+      <% errors.forEach((error) => { %>
+        <p><%= error.msg %></p>
+      <% }) %>
+    <% } %>    
+  </form>
+</div>
+<%- include('footer') %>

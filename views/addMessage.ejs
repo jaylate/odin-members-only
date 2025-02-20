@@ -1,0 +1,19 @@
+<%- include('header') %>
+<% if (locals.currentUser && locals.currentUser.ismember) { %>
+<h1>Input your message</h1>
+<form method="POST" action="/new">
+<label for="title">Message title:</label>
+<input name="title" id="title" required />
+<br />
+<label for="text">Your message:</label>
+<textarea name="text" id="text" required></textarea>
+<br />
+<button class="btn" type="submit">Submit new message</button>
+</form>
+<% } else if (locals.currentUser && !locals.currentUser.ismember) { %>
+<h1>Non-members are not allowed to create messages</h1>
+<p>Enter secret <a href="/secret">here</a> to get access</p>
+<% } else { %>
+<h1>Please <a href="/">login</a></h1>
+<% } %>
+<%- include('footer') %>

@@ -1,0 +1,48 @@
+<%- include('header') %>
+<% if (locals.currentUser) {%>
+<h1>Welcome <%= locals.currentUser.username %></h1>
+<nav class="navbar">
+  <a href="/new" class="button">Add new message</a>
+  <a href="/logout" class="button logout">Logout</a>
+</nav>
+<% } else { %>
+<div class="login">
+<h1>Login to create messages</h1>
+<form action="/login" method="POST">
+  <label for="username">Username:</label>
+  <input id="username" name="username" type="text" />
+  <br />
+  <label for="password">Password:</label>
+  <input id="password" name="password" type="password" />
+  <br />
+  <button>Log In</button>
+</form>
+<% if (locals.failureMessage) {%>
+<p><%= locals.failureMessage %></p>
+<% } %>
+<p>Or <a href="signup">sign up</a> if you don't have an accout</p>
+</div>
+<% } %>
+<% if (messages) { %>
+<% messages.forEach((message) => { %>
+<h3><%= message.title %></h3>
+<p><%= message.text %></p>
+<p><%= message.creationtime.toLocaleString("en-US") %></p>
+<% if (locals.currentUser &&
+   (locals.currentUser.ismember ||
+   locals.currentUser.isadmin)) { %>
+<p><%= message.creatorfullname %> (@<%= message.creatorusername %>)</p>
+<% } %>
+<% if (locals.currentUser &&
+   ((message.creatorusername === locals.currentUser.username &&
+   message.creatorid === locals.currentUser.id) ||
+   locals.currentUser.isadmin)
+   ) { %>
+<a href=<%= "/edit/"+message.id %>>Edit</a>
+<a href=<%= "/delete/"+message.id %>>Delete</a>
+<% } %>
+<% }); %>
+<% } else { %>
+<p>No messages yet</p>
+<% } %>
+<%- include('footer') %>

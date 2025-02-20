@@ -1,0 +1,18 @@
+<%- include('header') %>
+<% if (!message) { %>
+<h1>This message does not exist</h1>
+<% } else if (locals.currentUser && (locals.currentUser.username === message.creator || locals.currentUser.isadmin)) { %>
+<h1>Your message</h1>
+<form method="POST" action="/edit/<%= msgid %>">
+  <label for="title">Message title:</label>
+  <input name="title" id="title" value="<%= message.title %>" required />
+  <br />
+  <label for="text">Your message:</label>
+  <textarea name="text" id="text" required><%= message.text %></textarea>
+  <br />
+  <button class="btn" type="submit">Submit new message</button>
+</form>
+<% } else { %>
+<h1>You are not allowed to edit the message. Please <a href="/">login</a> as correct user</h1>
+<% } %>
+<%- include('footer') %>
